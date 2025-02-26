@@ -1,0 +1,138 @@
+<!-- Vinylize Recycled Starts Here -->
+  {% if section.settings.selcollection and collection.handle == section.settings.selcollection %}
+  <section class="vinylize-recycle py-60">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="vinylize-recycle__block">
+            <div class="title-block d-none d-lg-block">
+              {% if section.settings.heading-normal != blank and section.settings.heading-bold != blank %}
+              <h1><span class="font-light font-italic">
+                {{ section.settings.heading-normal }}</span> 
+                {{ section.settings.heading-bold }}
+              </h1>
+              {%endif%}
+              {% if section.settings.subheading-normal != blank and section.settings.subheading-bold != blank %}
+              <h2><span class="font-extra-light font-italic">
+                {{ section.settings.subheading-normal }}
+                </span> {{ section.settings.subheading-bold }}
+              </h2>
+              {%endif%}
+            </div>
+            <div class="text-wrapper">
+              {{ section.settings.content }}
+              
+  			{%if section.settings.content-txt != blank %}
+              <p class="copy-md">
+                <a href="{{section.settings.content-url}}" class="text-primary text-uppercase"> 
+                  {{section.settings.content-txt}}
+                  <span class="icon-wrap">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt"
+                         height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                         preserveAspectRatio="xMidYMid meet">
+  
+                      <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                         fill="#e51a22" stroke="none">
+                        <path d="M1400 5098 c-44 -17 -77 -44 -171 -137 -144 -143 -163 -177 -164
+                                 -286 0 -58 5 -91 19 -120 13 -27 333 -355 995 -1018 l976 -977 -977 -978
+                                 c-760 -760 -982 -987 -997 -1022 -14 -30 -21 -67 -21 -110 0 -103 29 -153 168
+                                 -291 98 -97 127 -119 175 -137 73 -28 131 -28 204 -1 56 20 108 71 1230 1193
+                                 1297 1296 1223 1214 1223 1346 0 132 74 50 -1223 1346 -1123 1123 -1174 1173
+                                 -1230 1193 -72 26 -136 26 -207 -1z" />
+                      </g>
+                    </svg>
+                  </span>
+                </a>
+              </p>
+              {%endif%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+           <div class="title-block d-lg-none">
+                {% if section.settings.heading-normal != blank and section.settings.heading-bold != blank %}
+                <h1><span class="font-light font-italic">
+                  {{ section.settings.heading-normal }}</span> 
+                  {{ section.settings.heading-bold }}
+                </h1>
+                {%endif%}
+                {% if section.settings.subheading-normal != blank and section.settings.subheading-bold != blank %}
+                <h2><span class="font-extra-light font-italic">
+                  {{ section.settings.subheading-normal }}
+                  </span> {{ section.settings.subheading-bold }}
+                </h2>
+                {%endif%}
+            </div>
+          <div class="vinylize-recycle__showcase">
+            {% if section.settings.main-img-desktop %}<img src="{{ section.settings.main-img-desktop | img_url:'master' }}" alt="" class="img-fluid">{% endif %}
+          </div>
+        </div>
+      </div>
+  </section>
+{% endif %}
+<!-- Vinylize Recycled Ends Here -->
+			
+
+
+{% schema %}
+  {
+    "name": "Right Image with Text",
+    "settings": [
+          {
+            "type": "collection",
+            "id": "selcollection",
+            "label": "Select Collection"
+          },
+          
+          {
+              "type":"text",
+              "id":"heading-normal",
+              "label":"Normal Heading"
+          },
+          {
+              "type":"text",
+              "id":"heading-bold",
+              "label":"Bold Heading"
+          },
+          {
+              "type":"text",
+              "id":"subheading-normal",
+              "label":"Normal Subheading"
+          },
+          {
+              "type":"text",
+              "id":"subheading-bold",
+              "label":"Bold Subheading"
+          },
+          {
+              "type":"textarea",
+              "id":"content",
+              "label":"Paragraph"
+          },
+          {
+              "type":"url",
+              "id":"content-url",
+              "label":"Read More Link"
+          },
+          {
+              "type":"text",
+              "id":"content-txt",
+              "label":"Read More Text"
+          },
+          {
+              "type":"image_picker",
+              "id":"main-img-desktop",
+              "label":"Select Main Desktop Image"	
+          }
+      ],
+      "presets":[{
+       "name":"Right Image with Text"
+     }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

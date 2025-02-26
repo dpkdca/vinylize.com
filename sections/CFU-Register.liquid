@@ -1,0 +1,111 @@
+
+    <div class="row text_wra testingTheFunctionality-1">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <div class="title-block pb-3 register_frm">
+          <div class="row"> 
+            <div class="col-lg-6">
+              {% if section.settings.title_bold != blank %}
+              <h1>
+                <span class="font-italic"> 
+                  {{ section.settings.title_bold }} 
+                </span>
+              </h1>
+              {% endif %}
+              <h2>
+                <span class="font-light font-italic">{{ section.settings.heading_normal }}</span> 
+                {{ section.settings.heading_bold }}
+              </h2>
+              <h4>
+                <span class="font-light font-italic">{{ section.settings.title_normal }} </span>
+              </h4>
+            </div>
+            <div class="col-lg-6">
+              {% if section.settings.cfu_header_desc != blank %}
+              	<p>{{ section.settings.cfu_header_desc | strip_html }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <div class="cfu-register-form">
+      		{{section.settings.cfu_shortcode}}
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+<script>
+// Optical show hide option
+jQuery(document).ready(function() {
+    setTimeout(function() {
+         jQuery('.ets_cf_row_3').hide(); 
+         jQuery('.ets_cf_form_control').on('change', function() { 
+             var est_val = jQuery(this).val();
+             var element_name = jQuery(this).attr("name");
+             if( element_name == 'dropdown-2' &&  est_val == "Optical Shop"){
+               jQuery('.ets_cf_row_3').show();
+               jQuery('.ets_cf_row_3 input').attr( 'data-required','true');
+             }else if(element_name == 'dropdown-2'){
+               jQuery('.ets_cf_row_3').hide();
+               jQuery('.ets_cf_row_3 input').attr( 'data-required','false');
+             }
+          });
+    }, 2000);
+});
+   
+  </script>
+
+{% schema %}
+{
+  "name": "CFU-Register",
+    "settings": [
+        {
+          "type":"text",
+          "id":"title_bold",
+          "label":"Bold Title",
+		  "default": "REGISTER"
+        },
+        {
+          "type":"text",
+          "id":"heading_normal",
+          "label":"Normal Heading",
+	      "default": "YOUR"
+        },
+        {
+          "type":"text",
+          "id":"heading_bold",
+          "label":"Bold Heading",
+		  "default": "VINYLIZE"
+        },
+        {
+          "type":"text",
+          "id":"title_normal",
+          "label":"Normal Title",
+		  "default": "OUR EYEWEAR IS MADE TO LAST."
+        },
+		{
+          "type":"richtext",
+          "id":"cfu_header_desc",
+          "label":"Content"
+        },
+		{
+          "type": "text",
+          "id": "cfu_shortcode",
+          "label": "Shortcode"
+		}
+    ],
+  "presets": [
+    {
+      "name": "CFU-Register",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

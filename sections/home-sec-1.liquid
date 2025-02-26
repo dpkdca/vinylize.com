@@ -1,0 +1,67 @@
+
+<!-- Hero Starts Here -->
+<section class="hero mb-60">
+  <div class="hero-img">
+    <div class="image-warpper position-relative">
+      {% if section.settings.banner-img-desktop != blank %}<img src="{{ section.settings.banner-img-desktop | img_url:'master' }}" alt="hero img" class="d-none d-md-block image-fill">{% endif %}
+      {% if section.settings.banner-img-mobile != blank %}<img src="{{ section.settings.banner-img-mobile | img_url:'master' }}" alt="hero img" class="d-md-none image-fill">{% endif %}
+      {% if section.settings.show-btn %}
+      <figcaption class="image-caption position-absolute">
+        <div class="btn-wrap">
+          {% if section.settings.btn-txt %}<a href="{{ section.settings.btn-url }}" class="btn">{{ section.settings.btn-txt }}</a>{% endif %}
+        </div>
+      </figcaption>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<!-- Hero Ends Here -->
+
+
+
+
+{% schema %}
+  {
+    "name": "Main Banner",
+    "settings": [
+					{
+						"type":"image_picker",
+						"id":"banner-img-desktop",
+						"label":"Select Desktop Banner"	
+					},
+					{
+						"type":"image_picker",
+						"id":"banner-img-mobile",
+						"label":"Select Mobile Banner"	
+					},
+					{
+						"type":"checkbox",
+						"id":"show-btn",
+						"label":"Show Button on Banner",
+						"default":true
+					},
+					{
+						"type":"text",
+						"id":"btn-txt",
+						"label":"Button Text",
+						"default":"Shop Now"	
+					},
+					{
+						"type":"url",
+						"id":"btn-url",
+						"label":"Button Link"	
+					}
+				],
+    "presets":[{
+				 "name":"Main Banner"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

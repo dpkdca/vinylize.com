@@ -1,0 +1,140 @@
+
+<!-- Newsletter Starts Here -->
+<section class="newsletter newsletter__registration bg-black text-primary py-60 mb-60 d-lg-none mob_regSection">
+  <div class="container-home">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="title-block">
+          {% if section.settings.heading != blank %}<h1> {{ section.settings.heading }}</h1>{%endif%}
+          {% if section.settings.subheading != blank and section.settings.subheading-bold != blank %}<h2><span class="font-light font-italic">{{ section.settings.subheading }}</span> {{ section.settings.subheading-bold }}</h2>{%endif%}
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="newsletter__block">
+          <div class="newsletter__block__inner">
+            <span class="icon-wrap d-none d-lg-block">
+              <img src="https://cdn.shopify.com/s/files/1/0690/0531/files/icon-right--flickity.png?v=1654211857" alt="icon">
+            </span>
+            <div class="btn-wrap">
+<!--               <a href="#" class="btn btn-primary">Sign up now!</a> -->
+            {% comment%} {% form 'customer', class: 'contact-form newsletter-form--newsletter-section', id: nil %}
+                {% if form.posted_successfully? %}
+                  <p class="quote">{{ 'general.newsletter_form.success_text' | t }}</p>
+                {% elsif form.errors %}
+                  <div class="one-whole column contact-form__form-errors">
+                    {% for field in form.errors %}
+                      <p class="form__error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                {% comment %} Hidden fields {% endcomment %}
+                <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+                <input type="hidden" name="challenge" value="false" />
+
+                <div class="newsletter-form form is-responsive" style="margin-right: 20px;">
+
+                  {% comment %} Email {% endcomment %}
+                  <div class="field is-stretched-width">
+                    <div class="control {% if settings.show_form_icons %} has-icons-left has-icons-left--responsive-form{% endif %}">
+                      <input class="input is-{{ field_input_style }} is-{{ field_input_size }}" type="email" name="contact[email]" placeholder="Email*" required
+                             style="border: none;border-radius: 20px;"
+                             >
+                      {% if settings.show_form_icons %}
+                        {% render 'icon', name: 'email' %}
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  {% comment %} Submit button {% endcomment %}
+                  <div class="field is-default-width is-align-self-end ">
+                    <div class="control">
+                      {%- assign button_label = section.settings.btn-txt  %}
+                      {% render 'button',
+                              label: button_label,
+                              type: "submit",
+                              style: settings.form_button_style,
+                              class: 'btn btn-primary is-within-form'
+                      %}
+                    </div>
+                  </div>
+                </div>
+            {% endform %} {% endcomment%}
+            {% if section.settings.reg_url != blank %}<a href="{{section.settings.reg_url}}" class="register_now btn-primary btn d-block pb-2 mb-1">{{ section.settings.btn-txt }}</a> {% endif %}
+            </div>
+            <div class="text-wrapper d-lg-none w-50 text-uppercase">
+              <p class="copy-sm">
+                {{ section.settings.info }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-wrapper d-none d-lg-block w-50 px-3 pt-2 mt-1 text-uppercase ml-auto">
+      <p class="copy-sm">
+        {{ section.settings.info }}
+      </p>
+    </div>
+  </div>
+</section>
+<!-- Newsletter Ends Here -->
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Newsletter 2(Mobile View)",
+    "settings": [
+					  {
+                          "type":"text",
+                          "id":"heading",
+                          "label":"Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading",
+                          "label":"Subheading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading-bold",
+                          "label":"Subheading Bold"
+                      },
+                      {
+                          "type":"text",
+                          "id":"btn-txt",
+                          "label":"Button Text",
+                          "default":"Register now!"	
+                      },
+                      {
+                          "type":"url",
+                          "id":"reg_url",
+                          "label":"Add Register URL"	
+                      },
+                      {
+                          "type":"textarea",
+                          "id":"info",
+                          "label":"Information"
+                      }
+				],
+    "presets":[{
+				 "name":"Newsletter 2(Mobile View)"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<style>
+.newsletter__registration.bg-black .title-block h1, .newsletter__registration.bg-black .title-block h2 {
+    color: #e51a22;
+}
+
+</style>

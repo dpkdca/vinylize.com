@@ -1,0 +1,16 @@
+{% if shop.metafields.cloudian-seo-keyword.status == 1 %}
+<!-- The HTML Meta Keywords Builder app is now Enabled -->
+{% elsif shop.metafields.cloudian-seo-keyword.status == 0 %}
+<!-- The HTML Meta Keywords Builder app is now Disabled -->
+{% endif %}
+{% if content_for_header contains "sapp.cloudianseo" %}
+  {% if shop.metafields.cloudian-seo-keyword.status == 1 %}
+  {%- liquid
+    assign keywords = ''
+    if request.page_type == 'index'
+      assign keywords = shop.metafields.cloudian-seo-keyword.keywords
+    endif
+  %}
+<meta name="keywords" content="{{ keywords }}">
+  {% endif %}
+{% endif %}

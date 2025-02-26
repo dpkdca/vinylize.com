@@ -1,0 +1,148 @@
+<!-- Newsletter Starts Here -->
+<section class="newsletter bg-primary desktop-only mb-60 d-none d-lg-block nws">
+  <div class="container-home">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="title-block">
+          {% if section.settings.heading != blank %}<h1 class="custom-top-spacing"> {{ section.settings.heading }}</h1>{%endif%}
+          {% if section.settings.subheading != blank and section.settings.subheading-bold != blank %}
+            <h2><span class="font-light font-italic">{{ section.settings.subheading }}</span> 
+              {{ section.settings.subheading-bold }}
+            </h2>
+          {%endif%}
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="newsletter__block">
+          <div class="newsletter__block__inner">
+            {% if section.settings.show_icon %}
+            <span class="icon-wrap">
+              <img src="https://cdn.shopify.com/s/files/1/0690/0531/files/icon-right--flickity.png?v=1654211857" alt="icon">
+            </span>
+            {% endif %}
+            <div class="btn-wrap">
+              
+              {% form 'customer', class: 'contact-form newsletter-form--newsletter-section', id: nil %}
+                {% if form.posted_successfully? %}
+                  <!--<p class="quote">{{ 'general.newsletter_form.success_text' | t }}</p>-->
+              <script>
+window.location = "https://vinylize.com/pages/thank-you-for-signing-up"
+</script>
+                {% elsif form.errors %}
+                  <div class="one-whole column contact-form__form-errors">
+                    {% for field in form.errors %}
+                      <p class="form__error">{{ field | capitalize }} - {{ form.errors.messages[field] }}</p>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                {% comment %} Hidden fields {% endcomment %}
+                <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+                <input type="hidden" name="challenge" value="false" />
+
+                <div class="newsletter-form form is-responsive" style="margin-right: 20px;">
+
+                  {% comment %} Email {% endcomment %}
+                  <div class="field is-stretched-width">
+                    <div class="control {% if settings.show_form_icons %} has-icons-left has-icons-left--responsive-form{% endif %}">
+                      <input class="input is-{{ field_input_style }} is-{{ field_input_size }}" type="email" name="contact[email]" placeholder="Email*" required
+                             style="border: none;border-radius: 20px;"
+                             >
+                      {% if settings.show_form_icons %}
+                        {% render 'icon', name: 'email' %}
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  {% comment %} Submit button {% endcomment %}
+                  <div class="field is-default-width is-align-self-end ">
+                    <div class="control">
+                      {%- assign button_label = section.settings.btn-txt  %}
+                      {% render 'button',
+                              label: button_label,
+                              type: "submit",
+                              style: settings.form_button_style,
+                              class: 'btn is-within-form'
+                      %}
+                    </div>
+                  </div>
+                </div>
+            {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-wrapper w-50 px-3 pt-2 mt-1 text-uppercase ml-auto">
+      <p class="copy-sm">
+        {{ section.settings.info }}
+      </p>
+    </div>
+  </div>
+</section>
+<!-- Newsletter Ends Here -->
+
+
+
+{% schema %}
+  {
+    "name": "Newsletter(Desktop View)",
+    "settings": [
+					  {
+                          "type":"text",
+                          "id":"heading",
+                          "label":"Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading",
+                          "label":"Subheading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading-bold",
+                          "label":"Subheading Bold"
+                      },
+                      {
+                          "type":"text",
+                          "id":"btn-txt",
+                          "label":"Button Text",
+                          "default":"Sign up now!"	
+                      },
+                      {
+                          "type":"textarea",
+                          "id":"info",
+                          "label":"Information"
+                      },
+                      {
+                          "type":"checkbox",
+                          "id":"show_icon",
+                          "label":"Show Arrow Icon",
+                          "default":true
+                      }
+				],
+    "presets":[{
+				 "name":"Newsletter(Desktop View)"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<style>
+  .newsletter.desktop-only .newsletter-form .field.is-default-width {
+    flex: unset;
+    width: 100%;
+  }
+  .newsletter.desktop-only .newsletter-form.is-responsive {
+    flex-direction: column;
+    width: 100%;
+  }
+  .title-block .custom-top-spacing{
+      padding: 29.5px 0 0;
+  }
+</style>

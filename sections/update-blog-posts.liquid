@@ -1,0 +1,214 @@
+<section class="our-blogs py-60 lb_posts">
+  <div class="container-home">  
+ <div class="title-block pb-3">
+      {% if section.settings.title-normal != blank and section.settings.title-bold != blank %}<h1><span class="font-light font-italic"> {{ section.settings.title-normal }} </span>
+        {{ section.settings.title-bold }}
+      </h1>{% endif %}
+      <h2>
+        <span class="font-light font-italic">{{ section.settings.heading-normal }}</span> 
+        {{ section.settings.heading-bold }}
+      </h2>
+ </div>
+ <h1>{{ section.settings.title | escape }}</h1>
+ {%- assign art = blogs.news.articles | sort:'updated_at' | reverse -%}
+ {%- for article  in art limit: section.settings.post_limit -%}
+        <div class="row">
+                <div class="col-lg-6">
+                  <div class="our-blogs__post-thumbnail">
+                    <div class="image-wrapper">
+                      <div class="image-ratio">
+                          <a href="{{ article.url }}">
+<!--                               {%- if article.image -%}
+                                 {{ article | img_url: 'master', scale: 2 | img_tag: '' }}
+                              {%- endif -%} -->
+                              {%- if article.image -%}
+                                <img src="{{ article | img_url:'master' }}"/>
+                              {%- endif -%}
+                           </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="our-blogs__post-content">
+                      <div class="our-blogs__post-content__inner">
+                        <div class="title-block">
+                          <div class="post-label copy-sm">POST:</div>
+                          <h4>{{ article.title }}</h4>
+                        </div>
+                        <div class="post-date">
+                          <p class="copy-sm">
+                           {%- if section.settings.blog_show_author -%}
+                            <span>
+                              By {{ article.author }}
+                            </span>
+                          {%- endif -%}
+                          <br />
+                          {%- if section.settings.blog_show_date -%}
+                            <span>
+                              {{ article.published_at | time_tag: format: 'month_day_year' }}
+                            </span>
+                          {%- endif -%}
+                          </p>
+                        </div>
+                        <div class="text-wrapper">
+                          <p class="copy-sm">{{ section.settings.read_time }}</p>
+                          <p>
+                            {%- if article.excerpt.size > 0 -%}
+                               {{ article.excerpt }}
+                            {%- else -%}
+                                {{ article.content | strip_html | truncate: 150 }}
+                            {%- endif -%}
+                          </p>
+                              <p class="copy-md">
+                                 <a href="{{ article.url }}" class="text-primary text-uppercase" aria-label="Read more: {{ article.title }}">
+                                    Read more
+                                    <span class="icon-wrap">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt"
+                                         height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                                         preserveAspectRatio="xMidYMid meet">
+                                      <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                         fill="#e51a22" stroke="none">
+                                        <path d="M1400 5098 c-44 -17 -77 -44 -171 -137 -144 -143 -163 -177 -164
+                                                 -286 0 -58 5 -91 19 -120 13 -27 333 -355 995 -1018 l976 -977 -977 -978
+                                                 c-760 -760 -982 -987 -997 -1022 -14 -30 -21 -67 -21 -110 0 -103 29 -153 168
+                                                 -291 98 -97 127 -119 175 -137 73 -28 131 -28 204 -1 56 20 108 71 1230 1193
+                                                 1297 1296 1223 1214 1223 1346 0 132 74 50 -1223 1346 -1123 1123 -1174 1173
+                                                 -1230 1193 -72 26 -136 26 -207 -1z">
+                                        </path>
+                                      </g>
+                                    </svg>
+                                  </span>
+                                  </a>
+                              </p>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+          </div>
+         {% comment %}
+          {%- if section.settings.blog_show_author -%}
+            <span>
+              By {{ article.author }}
+            </span>
+          {%- endif -%}
+
+          {%- if section.settings.blog_show_date -%}
+            <span>
+              {{ article.published_at | time_tag: format: 'month_day_year' }}
+            </span>
+          {%- endif -%}
+
+          {%- if article.excerpt.size > 0 -%}
+            {{ article.excerpt }}
+          {%- else -%}
+            {{ article.content | strip_html | truncate: 150 }}
+          {%- endif -%}
+
+          {%- if article.tags.size > 0 -%}
+            <ul aria-label="{{ 'blogs.article.tags' }}">
+            {%- for tag in article.tags -%}
+              <li>
+                <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+              </li>
+            {%- endfor -%}
+            </ul>
+          {%- endif -%}
+
+          <ul>
+            <li>
+              <a href="{{ article.url }}" aria-label="Read more: {{ article.title }}">
+                Read more
+              </a>
+            </li>
+
+            {%- if blog.comments_enabled? and article.comments_count > 0 -%}
+              <li>
+                <a href="{{ article.url }}#comments">
+                  {{ article.comments_count }} comments
+                </a>
+              </li>
+            {%- endif -%}
+
+          </ul>
+         {% endcomment %}
+      {%- endfor -%}
+
+</div> 
+</section>
+
+{% schema %}
+{
+  "name": "Update Blog posts",
+  "class": "index-section-lbp",
+  "settings": [
+    {
+                          "type":"text",
+                          "id":"title-normal",
+                          "label":"Normal Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"title-bold",
+                          "label":"Bold Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-normal",
+                          "label":"Normal Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-bold",
+                          "label":"Bold Heading"
+                      },
+    {
+      "type": "text",
+      "id": "read_time",
+      "label": "Read Time",
+      "default": "5 min read"
+    },
+    {
+      "id": "blog",
+      "type": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts",
+      "min": 2,
+      "max": 12,
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_author",
+      "label": "Show author",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Update Blog posts",
+      "category": "Blog",
+      "settings": {
+        "blog": "News",
+        "post_limit": 2
+      }
+    }
+  ]
+}
+{% endschema %}

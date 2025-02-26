@@ -1,0 +1,89 @@
+{%- assign locale_selector = false -%}
+{%- assign currency_selector = false -%}
+
+{%- if settings.show_currency_selector == true and shop.enabled_currencies.size > 1 -%}
+  {%- assign currency_selector = true -%}
+{%- endif -%}
+
+{%- if settings.show_locale_selector == true and shop.published_locales.size > 1 -%}
+  {%- assign locale_selector = true -%}
+{%- endif -%}
+
+<div class="mobile-menu vinylize_mobile--ver">
+ 
+  <div class="mobile-menu__content">
+  <button id="menu_cls_btn"> CLOSE {% render 'icon',
+                    name: 'x',
+                    icon_class: 'is-right close-search'
+            %} </button>
+   <div class="title-block"> <h2>MENU</h2></div>
+    <form class="search-form search-popup__form" action="{{ routes.search_url }}">
+      <div class="search__fields">
+        <input type="hidden" name="type" value="{{ settings.search_option }}" />
+        <label for="q" class="visuallyhidden">{{ settings.search_placeholder }}</label>
+        <div class="field">
+          <div class="control has-icons-left has-icons-right is-relative">
+            <input class="input" type="text" name="q" placeholder="{{ settings.search_placeholder }}" value="{{ search.terms }}" x-webkit-speech autocapitalize="off" autocomplete="off" autocorrect="off" data-q/>
+            {% render 'icon',
+                    name: 'search',
+                    icon_class: 'icnrgt'
+            %}
+          </div>
+        </div>
+        <input type="submit" name="search" class="visuallyhidden" value="" />
+      </div>
+    </form>
+    <div class="srctxt">Search Products, Categories or whatever you like</div>
+    <ul class="mobile-menu__list has-margin-bottom">
+      {% if settings.header_layout == 'vertical' %}
+        {% for block in nav_blocks %}
+          {% if block.type == 'navigation' %}
+            {% assign main_menu = linklists[block.settings.mob_linklist] %}
+            {% render 'mobile-menu-loop', main_menu: main_menu %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% assign main_menu = linklists[section.settings.mob_linklist] %}
+        {% render 'mobile-menu-loop', main_menu: main_menu %}
+      {% endif %}
+
+      {% if shop.customer_accounts_enabled %}
+        {% comment %} Accounts {% endcomment %}
+        <li>
+          {% if customer %}
+            {% comment %} Logout {% endcomment %}
+            <a class="mobile-menu__item item-with-icon" href="{{ routes.account_url }}" >
+              {% if settings.icon_style != 'text' %}
+                {% render 'icon', name: 'avatar' %}
+              {% endif %}
+              <span class="icon-caption">
+                {{ 'layout.customer.my_account' | t | escape }}
+              </span>
+            </a>
+          {% else %}
+            {% comment %} Login {% endcomment %}
+            <a class="mobile-menu__item item-with-icon" href="{{ routes.account_login_url }}" >
+              {% if settings.icon_style != 'text' %}
+                {% render 'icon', name: 'avatar' %}
+              {% endif %}
+              <span class="icon-caption">
+                {{ 'layout.customer.log_in' | t | escape }}
+              </span>
+            </a>
+          {% endif %}
+        </li>
+      {% endif %}
+
+      <li>
+        {%
+          render 'localization-switcher-mobile',
+          id: 'selector-form--mobile',
+          additional_classes: 'selectors-form--mobile',
+          currency_selector: currency_selector,
+          locale_selector: locale_selector,
+          show_currency: settings.show_currency_selector
+        %}
+      </li>
+    </ul>
+  </div>
+</div>

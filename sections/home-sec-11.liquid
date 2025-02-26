@@ -1,0 +1,157 @@
+<!-- Our Blogs Starts Here -->
+<section class="our-blogs py-60">
+  <div class="container-home">
+    <div class="title-block pb-3">
+      {% if section.settings.title-normal != blank and section.settings.title-bold != blank %}<h1><span class="font-light font-italic"> {{ section.settings.title-normal }} </span>
+        {{ section.settings.title-bold }}
+      </h1>{% endif %}
+      <h2>
+        <span class="font-light font-italic">{{ section.settings.heading-normal }}</span> 
+        {{ section.settings.heading-bold }}
+      </h2>
+    </div>
+    {% for block in section.blocks %}
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="our-blogs__post-thumbnail">
+          <div class="image-wrapper">
+            <div class="image-ratio image-ratio--square">
+               {% if block.settings.img != blank %}<img src="{{ block.settings.img | img_url:'master' }}" alt="blog thumbnail">{% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="our-blogs__post-content">
+          <div class="our-blogs__post-content__inner">
+            <div class="title-block">
+              <div class="post-label copy-sm">
+                {{ block.settings.label }}
+              </div>
+              {%if section.settings.title-normal != blank %}<h4>{{section.settings.title-normal}}</h4>{% endif %}
+            </div>
+            <div class="post-date">
+              <p class="copy-sm">{{ block.settings.subtitle1 }}</p>
+            </div>
+            <div class="text-wrapper">
+              <p class="copy-sm">{{ block.settings.subtitle2 }}</p>
+              {{ block.settings.blog-details }}
+               {%if block.settings.content-txt != blank %}
+                  <p class="copy-md">
+                    <a href="{{block.settings.content-url}}" class="text-primary text-uppercase"> 
+                      {{block.settings.content-txt}}
+                      <span class="icon-wrap">
+                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt"
+                             height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                             preserveAspectRatio="xMidYMid meet">
+                          <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                             fill="#e51a22" stroke="none">
+                            <path d="M1400 5098 c-44 -17 -77 -44 -171 -137 -144 -143 -163 -177 -164
+                                     -286 0 -58 5 -91 19 -120 13 -27 333 -355 995 -1018 l976 -977 -977 -978
+                                     c-760 -760 -982 -987 -997 -1022 -14 -30 -21 -67 -21 -110 0 -103 29 -153 168
+                                     -291 98 -97 127 -119 175 -137 73 -28 131 -28 204 -1 56 20 108 71 1230 1193
+                                     1297 1296 1223 1214 1223 1346 0 132 74 50 -1223 1346 -1123 1123 -1174 1173
+                                     -1230 1193 -72 26 -136 26 -207 -1z">
+                            </path>
+                          </g>
+                        </svg>
+                      </span>
+                    </a>
+                  </p>
+                {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<!-- Our Blogs Ends Here -->
+
+
+{% schema %}
+  {
+    "name": "Blog Blocks",
+    "settings": [
+					  {
+                          "type":"text",
+                          "id":"title-normal",
+                          "label":"Normal Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"title-bold",
+                          "label":"Bold Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-normal",
+                          "label":"Normal Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-bold",
+                          "label":"Bold Heading"
+                      }
+				],
+    "blocks": [
+      {
+        "type": "icon",
+        "name": "Blogs",
+        "settings": [
+                      {
+                          "type":"image_picker",
+                          "id":"img",
+                          "label":"Select Image"	
+                      },
+                      {
+                          "type":"text",
+                          "id":"label",
+                          "label":"Blog label"
+                      },
+                      {
+                          "type":"text",
+                          "id":"title-normal",
+                          "label":"Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subtitle1",
+                          "label":"Subtitle 1"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subtitle2",
+                          "label":"Subtitle 2"
+                      },
+                      {
+                          "type":"richtext",
+                          "id":"blog-details",
+                          "label":"Content"
+                      },
+                      {
+                          "type":"url",
+                          "id":"content-url",
+                          "label":"Read More Link"
+                      },
+                      {
+                          "type":"text",
+                          "id":"content-txt",
+                          "label":"Read More Text"
+                      }
+        			]
+      }
+    ],
+    "presets":[{
+				 "name":"Blog Blocks"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

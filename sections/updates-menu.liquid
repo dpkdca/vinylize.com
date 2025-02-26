@@ -1,0 +1,50 @@
+<style>
+  .updates-menu {
+    margin: 8rem 0;
+}
+  .updates-menu ul {
+    padding: 1rem 0;
+}
+.updates-menu ul li {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid;
+}
+</style>
+<div class="updates-menu">
+  <h2>Updates</h2>
+  <ul>
+    {% for link in linklists[section.settings.menu_links].links %}
+      <li>
+        <a href="{{ link.url }}" title="{{ link.title }}">
+          {{ link.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+{% schema %}
+{
+  "name": "Updates Menu",
+  "settings": [
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Menu Title",
+      "default": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_links",
+      "label": "Menu Links"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Updates Menu",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

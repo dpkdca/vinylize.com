@@ -1,0 +1,61 @@
+<!-- Instagram Section Starts Here -->
+<section class="instagram py-60 mb-60">
+  <div class="container-home">
+    <div class="title-block w-50 pb-60">
+      {% if section.settings.title != blank %}
+      	<h1>{{ section.settings.title }}</h1>
+      {% endif %}
+    </div>
+    <div class="row">
+      {% for block in section.blocks %}
+        <div class="col-md-4 col-6 py-3">
+          <div class="instagram__thumbnail">
+            <div class="image-ratio image-ratio--square">
+              {% if block.settings.img != blank %}
+              	<img src="{{ block.settings.img | img_url:'master' }}" alt="instafeed">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Instagram Section Ends Here -->
+
+
+{% schema %}
+  {
+    "name": "Instagram Feeds",
+    "settings": [
+					  {
+                          "type":"text",
+                          "id":"title",
+                          "label":"Title"
+                      }
+				],
+    "blocks": [
+      {
+        "type": "icon",
+        "name": "Image",
+        "settings": [
+                      {
+                          "type":"image_picker",
+                          "id":"img",
+                          "label":"Select Image"	
+                      }
+        			]
+      }
+    ],
+    "presets":[{
+				 "name":"Instagram Feeds"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,79 @@
+<!-- Shipping and Guarantee Starts Here -->
+<section class="shipping-and-guarantee pb-60">
+  <div class="container-home">
+    <div class="row">
+      {% for block in section.blocks %}
+        <div class="col-lg-4 shipping-and-guarantee__column">
+          <div class="shipping-and-guarantee__block">
+            {% if block.settings.block_url %} <a href="{{ block.settings.block_url }}">{% endif %}
+                <div class="icon-wrapper">
+                  <div class="image-ratio image-ratio--contain">
+                    {% if block.settings.img != blank %}<img src="{{ block.settings.img | img_url:'master' }}" alt="icon">{% endif %}
+                  </div>
+                </div>
+                {% if block.settings.show-heading %}
+                <div class="title-block">
+                  <h2>{{ block.settings.heading }}</h2>
+                  <p class="copy-sm">{{ block.settings.subheading }}</p>
+                </div>
+                {% endif %}
+              {% if block.settings.block_url %}</a>{% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- Shipping and Guarantee Ends Here -->
+
+
+
+{% schema %}
+  {
+    "name": "Icons with Text",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "icon",
+        "name": "Add Icons with Text",
+        "settings": [
+                      {
+                          "type":"checkbox",
+                          "id":"show-heading",
+                          "label":"Show Block"
+                      },
+                      {
+                          "type":"image_picker",
+                          "id":"img",
+                          "label":"Select Image"	
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading",
+                          "label":"Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading",
+                          "label":"Subheading"
+                      },
+                      {
+                          "type":"url",
+                          "id":"block_url",
+                          "label":"Link"
+                      }
+        			]
+      }
+    ],
+    "presets":[{
+				 "name":"Icons with Text"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

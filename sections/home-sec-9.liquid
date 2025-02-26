@@ -1,0 +1,163 @@
+
+<!-- Best Seller Starts Here -->
+<section class="best-seller bg-beige">
+  <div class="best-seller__carousel">
+    {% for block in section.blocks %}
+    	<div class="carousel-cell  ">
+      <div class="row row-gutters-30">
+        <div class="col-lg-6 carousel-cell__column">
+          <div class="title-block">
+            {% if block.settings.title-normal != blank and block.settings.title-bold != blank %}
+            <h1> <span class="font-italic font-light"> {{block.settings.title-normal}}</span> {{block.settings.title-bold}}</h1>
+            {% endif %}
+          </div>
+          <div class="secondary-title text-center d-lg-none">
+            {% if block.settings.red-heading != blank%}
+            	<h1 class="text-primary text-uppercase pt-2">{{block.settings.red-heading}}</h1>
+            {% endif %}
+            <h2> <span class="font-light font-italic"> {{ block.settings.heading-normal }}</span> {{ block.settings.heading-bold }}</h2>
+          </div>
+          <div class="best-seller__carousel--showcase">
+            <div class="image-ratio image-ratio--square">
+              {% if block.settings.img %}<img src="{{ block.settings.img | img_url:'master' }}" alt="">{% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 carousel-cell__column">
+          <div class="title-block d-none d-lg-block">
+            {% if block.settings.red-heading != blank%}
+            	<h1 class="text-primary">{{block.settings.red-heading}}</h1>
+            {% endif %}
+          </div>
+          <div class="content-block">
+            <h2 class="d-none d-lg-block"> <span class="font-light font-italic"> {{ block.settings.heading-normal }}</span> {{ block.settings.heading-bold }}</h2>
+            {% if block.settings.subheading != blank%}<p>{{ block.settings.subheading }}</p>{% endif %}
+            <ul class="d-flex">
+              <li>
+                {% if block.settings.icon-1 %}<img src="{{ block.settings.icon-1 | img_url:'master' }}" alt="icon">{% endif %}
+              </li>
+              <li>
+                {% if block.settings.icon-2 %}<img src="{{ block.settings.icon-2 | img_url:'master' }}" alt="icon">{% endif %}
+              </li>
+            </ul>
+            <div class="text-wrapper">
+              {{ block.settings.content }}
+          {%if block.settings.content-txt != blank %}
+              <p class="copy-md">
+                <a href="{{block.settings.content-url}}" class="text-primary text-uppercase"> 
+                  {{block.settings.content-txt}}
+                  <span class="icon-wrap">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt"
+                         height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+                         preserveAspectRatio="xMidYMid meet">
+
+                      <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                         fill="#e51a22" stroke="none">
+                        <path d="M1400 5098 c-44 -17 -77 -44 -171 -137 -144 -143 -163 -177 -164
+                                 -286 0 -58 5 -91 19 -120 13 -27 333 -355 995 -1018 l976 -977 -977 -978
+                                 c-760 -760 -982 -987 -997 -1022 -14 -30 -21 -67 -21 -110 0 -103 29 -153 168
+                                 -291 98 -97 127 -119 175 -137 73 -28 131 -28 204 -1 56 20 108 71 1230 1193
+                                 1297 1296 1223 1214 1223 1346 0 132 74 50 -1223 1346 -1123 1123 -1174 1173
+                                 -1230 1193 -72 26 -136 26 -207 -1z"></path>
+                      </g>
+                    </svg>
+                  </span>
+                </a>
+              </p>
+               {%endif%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<!-- Best Seller Ends Here -->
+
+
+
+{% schema %}
+  {
+    "name": "Image with Text Blocks",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "icon",
+        "name": "Add Icons with Text",
+        "settings": [
+                      {
+                          "type":"image_picker",
+                          "id":"img",
+                          "label":"Select Image"	
+                      },
+                      {
+                          "type":"text",
+                          "id":"title-normal",
+                          "label":"Normal Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"title-bold",
+                          "label":"Bold Title"
+                      },
+                      {
+                          "type":"text",
+                          "id":"red-heading",
+                          "label":"Red Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-normal",
+                          "label":"Normal Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"heading-bold",
+                          "label":"Bold Heading"
+                      },
+                      {
+                          "type":"text",
+                          "id":"subheading",
+                          "label":"Subheading"
+                      },		
+					  {
+                          "type":"image_picker",
+                          "id":"icon-1",
+                          "label":"Select Icon 1"	
+                      },		
+					  {
+                          "type":"image_picker",
+                          "id":"icon-2",
+                          "label":"Select Icon 2"	
+                      },
+                      {
+                          "type":"richtext",
+                          "id":"content",
+                          "label":"Paragraph"
+                      },
+                      {
+                          "type":"url",
+                          "id":"content-url",
+                          "label":"Read More Link"
+                      },
+                      {
+                          "type":"text",
+                          "id":"content-txt",
+                          "label":"Read More Text"
+                      }
+        			]
+      }
+    ],
+    "presets":[{
+				 "name":"Image with Text Blocks"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,494 @@
+{% capture content %}
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]--> 
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="{{ shop.locale }}"><!--<![endif]-->
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S08QQYY3HY"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+
+
+gtag('config', 'G-S08QQYY3HY');
+</script>
+  {% render 'cloudian-seo-meta-keywords-builder' %}
+  <meta charset="utf-8">
+  <meta http-equiv="cleartype" content="on">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.shop_bg_color }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if current_tags -%}{%- assign meta_tags = current_tags | join: ', ' -%}{%- endif -%}
+  <title>{%- if template contains "index" -%}{{ page_title }}{%- else -%}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{%- endif -%}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}</title>
+
+  <meta name="google-site-verification" content="4rmyPRPmN_gjK1aHTFPbbqlwc92a-jh8DHQ8NLVElRI" />
+  
+  <!-- DNS prefetches -->
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="dns-prefetch" href="https://fonts.shopify.com">
+  <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
+  <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+
+  {% comment %}
+  {% if settings.enable_shopify_review_comments %}
+    <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+  {% endif %}
+  {% endcomment %}
+
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+
+  {% comment %}
+  {% if settings.enable_shopify_review_comments %}
+    <link rel="preconnect" href="https://productreviews.shopifycdn.com">
+  {% endif %}
+  {% endcomment %}
+
+  <!-- Preloads -->
+  <!-- Preload CSS -->
+  <link rel="preload" href="{{ 'fancybox.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'styles.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'new-style.css' | asset_url }}" as="style"> 
+  <link rel="preload" href="{{ 'custom-dev.css' | asset_url }}" as="style">
+  
+
+  <!-- Preload JS -->
+	
+  
+  {%capture spd_opt %}
+    <link rel="preload" href="{{ 'vendors.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'utilities.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'app.js' | asset_url }}" as="script">
+    
+  {%endcapture%}
+  <script>
+    document.open();
+    if(window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('\x43\x68\x72\x6F\x6D\x65\x2D\x4C\x69\x67\x68\x74\x68\x6F\x75\x73\x65') == -1 && window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('X11') == -1 && window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('\x47\x54\x6D\x65\x74\x72\x69\x78') == -1) {
+    console.log("normal user");
+      document.write({{spd_opt | json}});
+    }
+
+    else {
+      document.write("<html><p>.</p></html>");
+    }
+    document.close();
+
+  </script>
+
+  {% if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 %}
+    <link rel="preload" href="/services/javascripts/currencies.js" as="script">
+    <link rel="preload" href="{{ 'currencyConversion.js' | asset_url }}" as="script">
+  {% endif %}
+
+  {% if settings.enable_shipping_calculator and template contains 'cart' %}
+    <link rel="preload" href="{{ 'shopify_common.js' | shopify_asset_url }}" as="script">
+    <link rel="preload" href="{{ 'api.jquery.js' | shopify_asset_url }}" as="script">
+    <link rel="preload" href="{{ 'countries.js' | shopify_asset_url }}" as="script">
+  {% endif %}
+
+  {%- if template.directory == 'customers' -%}
+  <link rel="preload" href="{{ 'shopify_common.js' | shopify_asset_url }}" as="script">
+  <link rel="preload" href="{{ 'customer_area.js' | shopify_asset_url }}" as="script">
+  {%- endif -%}
+
+  {% if settings.disqus_enabled %}
+    {% if template contains "blog" or template contains "article" or template contains "index" %}
+      <link rel="preload" href="//{{ settings.disqus_shortname }}.disqus.com/count.js" as="script">
+    {% endif %}
+  {% endif %}
+
+  <!-- CSS for Flex -->
+  <link rel="stylesheet" href="{{ 'fancybox.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'new-style.css' | asset_url }}">
+  <link rel="stylesheet" href="{{ 'custom-dev.css' | asset_url }}">
+
+  {% comment %}Inject theme-object begin{% endcomment %}
+  <script>
+    window.Theme = window.Theme || {};
+    window.Theme.version = '2.2.2';
+    window.Theme.name = 'Flex';
+  </script>
+  {% comment %}Inject theme-object end{% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+  {%capture spd_opt %}
+    <script src="{{ 'vendors.js' | asset_url }}" defer></script>
+    <script src="{{ 'utilities.js' | asset_url }}" defer></script>
+    <script src="{{ 'app.js' | asset_url }}" defer></script>
+  {%endcapture%}
+  <script>
+    document.open();
+    if(window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('\x43\x68\x72\x6F\x6D\x65\x2D\x4C\x69\x67\x68\x74\x68\x6F\x75\x73\x65') == -1 && window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('X11') == -1 && window['\x6E\x61\x76\x69\x67\x61\x74\x6F\x72']['\x75\x73\x65\x72\x41\x67\x65\x6E\x74'].indexOf('\x47\x54\x6D\x65\x74\x72\x69\x78') == -1) {
+    console.log("normal user");
+      document.write({{spd_opt | json}});
+    }
+
+    else {
+      document.write("<html><p>.</p></html>");
+    }
+    document.close();
+
+  </script>
+  
+
+  {%- if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 -%}
+    <script type="text/javascript" src="/services/javascripts/currencies.js"></script>
+    <script src="{{ 'currencyConversion.js' | asset_url }}" defer></script>
+  {%- endif -%}
+
+  <script>
+    {% render 'js-variables' %}
+  </script>
+
+  {%- if settings.enable_shipping_calculator and template contains "cart" -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+    <script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer></script>
+    <script src="{{ 'countries.js' | shopify_asset_url }}" defer></script>
+  {%- endif -%}
+
+  {%- if template.directory == 'customers' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+    <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+  {%- endif -%}
+
+  {% if settings.disqus_enabled %}
+    {% if template contains "blog" or template contains "article" or template contains "index" %}
+      <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
+    {% endif %}
+  {% endif %}
+
+  <noscript>
+    <style>
+      /* Insert styles for styles when JS is not loaded */
+
+      .noscript {
+        display: block;
+      }
+
+    </style>
+  </noscript>
+
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}" />
+  {%- endif -%}
+
+  {%- if settings.favicon != nil -%}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ settings.favicon | img_url: '180x180' }}">
+    <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x180' }}"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ settings.favicon | img_url: '57x57' }}"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ settings.favicon | img_url: '60x60' }}"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ settings.favicon | img_url: '72x72' }}"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ settings.favicon | img_url: '76x76' }}"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ settings.favicon | img_url: '114x114' }}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ settings.favicon | img_url: '180x180' }}"/>
+    <link rel="apple-touch-icon" sizes="228x228" href="{{ settings.favicon | img_url: '228x228' }}"/>
+  {%- else -%}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
+  {%- endif -%}
+
+ {% comment %} {{ content_for_header }} {% endcomment %}
+
+  {% capture cfh %}
+
+{{ content_for_header }}
+
+{% endcapture %}
+
+{% assign clnurl = canonical_url | split: "?" | first | remove: shop.secure_url | join | string %}
+
+{% assign atomurl = '<link rel="alternate" type="application/atom+xml" title="Feed" href="' | append: clnurl | append: '.atom" />' %}
+
+{% if cfh contains "application/atom+xml" %} <!-- {{ atomurl | string }} -->
+
+{% endif %}
+
+{{ cfh | remove: atomurl }}
+  
+{% include 'ets_cf_assets' %}   
+
+  {% render 'social-meta-info' %}
+  {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
+  {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
+
+  {% if template contains 'customers' %}
+    {{ "shopify_common.js" | shopify_asset_url | script_tag }}
+    {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+  {% endif %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% if content_for_header contains 'hellogtm.helloshopowner.com' %}{% render 'hello-gtm-head' %}{% endif %} 
+<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-69HBLD54EH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-69HBLD54EH');
+  </script>
+<!-- End Google tag (gtag.js) -->
+
+ {% include 'swift_core' %} 
+<script>
+    const redirects = {
+          "https://vinylize.com/collections/all/classic?page=5": "https://vinylize.com/collections/all/classic",
+          "https://vinylize.com/collections/all/black?page=5": "https://vinylize.com/collections/all/black",
+          "https://vinylize.com/collections/sun/panto": "https://vinylize.com/collections/sun",
+          "https://vinylize.com/collections/all/unbreakable": "https://vinylize.com/collections/all",
+          "https://vinylize.com/collections/optical/classic?page=3": "https://vinylize.com/collections/optical/classic",
+          "https://vinylize.com/collections/optical/large?page=3": "https://vinylize.com/collections/optical/large",
+          "https://vinylize.com/collections/all/dup-review-publication": "https://vinylize.com/collections/all",
+          "https://vinylize.com/collections/optical?page=5&view=Optical": "https://vinylize.com/collections/optical",
+          "https://vinylize.com/collections/optical/women?page=2": "https://vinylize.com/collections/optical/women",
+          "https://vinylize.com/collections/sun/gender_male": "https://vinylize.com/collections/sun",
+          "https://vinylize.com/collections/all/gender_female": "https://vinylize.com/collections/all",
+          "https://vinylize.com/collections/optical/sun": "https://vinylize.com/collections/optical",
+          "https://vinylize.com/collections/all/flamboyant": "https://vinylize.com/collections/all",
+          "https://vinylize.com/collections/optical/unisex?page=2": "https://vinylize.com/collections/optical",
+          "https://vinylize.com/collections/all/rectangle?page=3": "https://vinylize.com/collections/all" 
+    };
+    const currentUrl = window.location.href;
+    if (redirects[currentUrl]) {
+        window.location.replace(redirects[currentUrl]);
+    }
+</script>
+
+ </head>
+
+{%- capture money_format_output -%}
+  {%- if settings.currency_format == 'money_with_currency_format' -%}
+    {{- shop.money_with_currency_format | strip_html -}}
+  {%- else -%}
+    {{- shop.money_format | strip_html -}}
+  {%- endif -%}
+{%- endcapture -%}
+<body
+  class="
+    {%- if template == '404' -%}
+      error-404
+    {% else -%}
+      {{ template | replace: '.', '-' | handle }}
+    {%- endif -%}
+    {% if settings.header_layout == 'vertical' -%}
+      has-vertical-header
+    {%- endif -%} {% if template == 'collection' %}{{ collection.handle }}{% endif %} {{ page.title | replace: ' ', '-' | handle}}
+  "
+  data-money-format="{{ money_format_output }}"
+  data-shop-url="{{ shop.url }}"
+  data-current-lang="{{ request.locale.iso_code }}"
+>
+  {% comment %}Inject css-variables begin{% endcomment %}
+  {% style %}
+    :root {
+      --color-body-text: {{ settings.regular_color }};
+      --color-body: {{ settings.shop_bg_color }};
+      --color-bg: {{ settings.shop_bg_color }};
+    }
+  {% endstyle %}
+  {% comment %}Inject css-variables end{% endcomment %}
+
+  {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals begin{% endcomment %}
+  {%- capture price -%}{%- render 'price-ui-templates', template: 'price' -%}{%- endcapture -%}
+  {%- capture price_percent -%}{%- render 'price-ui-templates', template: 'price-percent' -%}{%- endcapture -%}
+  {%- capture price_min -%}{%- render 'price-ui-templates', template: 'price-min' -%}{%- endcapture -%}
+  {%- capture price_max -%}{%- render 'price-ui-templates', template: 'price-max' -%}{%- endcapture -%}
+  {%- capture unit_quantity -%}{%- render 'price-ui-templates', template: 'unit-quantity' -%}{%- endcapture -%}
+  {%- capture unit_price -%}{%- render 'price-ui-templates', template: 'unit-price' -%}{%- endcapture -%}
+  {%- capture unit_measurement -%}{%- render 'price-ui-templates', template: 'unit-measurement' -%}{%- endcapture -%}
+  
+  <template id="price-ui">{%- render 'price-ui-templates', template: 'price-ui' -%}</template>
+  <template id="price-ui-badge">{%- render 'price-ui-templates', template: 'price-ui-badge' -%}</template>
+  
+  <template id="price-ui__price">{{ price }}</template>
+  <template id="price-ui__price-range">{{- 'product.price.range_html' | t: price_min: price_min, price_max: price_max -}}</template>
+  <template id="price-ui__unit-pricing">{{- 'product.price.unit_pricing_html' | t: unit_quantity: unit_quantity, unit_price: unit_price, unit_measurement: unit_measurement -}}</template>
+  <template id="price-ui-badge__percent-savings-range">{{- 'product.badge.sale_percentage_range_html' | t: price_percent: price_percent -}}</template>
+  <template id="price-ui-badge__percent-savings">{{- 'product.badge.sale_percentage_single_html' | t: price_percent: price_percent -}}</template>
+  <template id="price-ui-badge__price-savings-range">{{- 'product.badge.sale_money_range_html' | t: price: price -}}</template>
+  <template id="price-ui-badge__price-savings">{{- 'product.badge.sale_money_single_html' | t: price: price -}}</template>
+  <template id="price-ui-badge__on-sale">{{- 'product.badge.sale' | t -}}</template>
+  <template id="price-ui-badge__sold-out">{{- 'product.badge.sold_out' | t -}}</template>
+  <template id="price-ui-badge__in-stock">{{- 'product.badge.in_stock' | t -}}</template>
+  {% comment %}Inject @pixelunion/shopify-price-ui/price-ui-globals end{% endcomment %}
+
+
+  {%- if settings.show_announcement_bar -%}
+    {% section 'announcement-bar' %}
+  {%- endif -%}
+
+  {%- if settings.header_layout == "classic" -%}
+    {% section 'header__top-bar' %}
+    {% section 'header-classic' %}
+  {%- elsif settings.header_layout == "centered" -%}
+    {% section 'header-centered__top-bar' %}
+    {% section 'header-centered' %}
+  {%- elsif settings.header_layout == "vertical" -%}
+    {% section 'header-vertical' %}
+  {%- elsif settings.header_layout == "search_focus" -%}
+    {% section 'header__top-bar' %}
+    {% section 'header-search-focus' %}
+  {%- endif -%}
+
+  {%- if settings.cart_action == 'drawer' -%}
+    {% render 'ajax-cart' %}
+  {%- endif -%}
+
+  {% if settings.mega_menu_1 == true %}
+    {% section 'mega-menu-1' %}
+  {% endif %}
+  {% if settings.mega_menu_2 == true %}
+    {% section 'mega-menu-2' %}
+  {% endif %}
+  {% if settings.mega_menu_3 == true %}
+    {% section 'mega-menu-3' %}
+  {% endif %}
+  {% if settings.mega_menu_4 == true %}
+    {% section 'mega-menu-4' %}
+  {% endif %}
+  {% if settings.mega_menu_5 == true %}
+    {% section 'mega-menu-5' %}
+  {% endif %}
+  {% if settings.mega_menu_6 == true %}
+    {% section 'mega-menu-6' %}
+  {% endif %}
+  {% if settings.mega_menu_7 == true %}
+    {% section 'mega-menu-7' %}
+  {% endif %}
+  {% if settings.mega_menu_8 == true %}
+    {% section 'mega-menu-8' %}
+  {% endif %}
+  {% if settings.mega_menu_9 == true %}
+    {% section 'mega-menu-9' %}
+  {% endif %}
+  {% if settings.mega_menu_10 == true %}
+    {% section 'mega-menu-10' %}
+  {% endif %}
+
+  {% if settings.header_layout == "vertical" %}
+    <div class="is-beside-vertical-header">
+  {% endif %}
+
+  {{ content_for_layout }}
+      {% section 'home-sec-13' %}
+      {% comment %}
+
+  {% if settings.footer_layout == "centered" %}
+    {% section 'footer__icon-bar' %}
+    {% section 'footer-centered' %}
+  {% elsif settings.footer_layout == "classic" %}
+    {% section 'footer__icon-bar' %}
+    {% section 'footer-classic' %}
+  {% elsif settings.footer_layout == "promotional" %}
+    {% section 'footer__icon-bar' %}
+    {% section 'footer-promotional' %}
+  {% endif %}
+
+      {% endcomment %}
+
+  {% if settings.header_layout == "vertical" %}
+    </div>
+  {% endif %}
+
+  {% if settings.show_fixed_message %}
+    {% section 'fixed-message' %}
+  {% endif %}
+
+  {% if settings.enable_quickshop %}
+    {% render 'quick-shop' %}
+  {% endif %}
+
+  {% if settings.search_display_style == 'popup' %}
+    {% render 'search-popup' %}
+  {% endif %}
+
+  {% if settings.show_popup %}
+    {% section 'popup' %}
+  {% endif %}
+
+  {% render 'mobile-search' %}
+
+  {% render 'structured-data' %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{ 'new-vendors.js' | asset_url | script_tag }}
+    {{ 'scripts.js' | asset_url | script_tag }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  <script>
+    // ATW popup
+    $('.atw_popup_fit').magnificPopup({
+        type: 'image',
+        mainClass: 'mfp-with-zoom', 
+        gallery:{
+            enabled:true
+          },
+        zoom: {
+          enabled: true, 
+          duration: 300, 
+          easing: 'ease-in-out', 
+          opener: function(openerElement) {
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+        }
+      },
+      image: {
+       titleSrc: function(item) {
+          return item.el.find('img').attr('title');
+       }
+      }
+    });
+
+    //Close button mobile..
+    $('#menu_cls_btn').click(function() {
+       $('.mobile-menu__toggle-icon').removeClass('is-active');
+       $('.mobile-menu__toggle-button').attr('data-show-mobile-menu', 'false');
+    });
+    
+    //Button wrap
+    $('.slider-img .flickity-button').wrapAll('<div class="csButton_container"></div>');
+    // Optical show hide option
+    // jQuery(document).ready(function(){ 
+    //     jQuery('#ets_cf_ipg_OE6tDRZblL').hide();
+    //       jQuery('.ets_cf_form_control').on('change', function() { 
+    //           var est_val = jQuery(this).val();
+    //           if(est_val == "Optical Shop"){
+    //             jQuery('.ets_cf_row_3').show();
+    //           }else{
+    //             jQuery('.ets_cf_row_3').hide();
+    //           }
+    //        });
+    //  });
+  </script>
+   <script>
+   $(document).ready(function() {
+        // Check if the li with class "heavy-metal" exists
+        if ($('.sidebar-block__collection-list .heavy-metal').length) {
+            // Change the href attribute of the corresponding anchor tag
+            $('.sidebar-block__collection-list .heavy-metal a').attr('href', '/pages/heavy-metal');
+        }
+    });
+ 
+</script>
+
+  {% if page.handle == 'collaborators' %}
+    <script>
+      setTimeout(function(){
+    	jQuery("#display_loading").fadeOut();
+    },1200)
+    </script>
+  {% endif %}
+  <!-- Start- lazy loading script-->
+  <script src="https://afarkas.github.io/lazysizes/lazysizes.min.js" defer></script>
+  <!-- End- loading script-->
+</body>
+</html>
+{% endcapture %}
+{% assign content = content | replace_first: '<!doctype', '!doctype' | split: ' <' %}
+{%- for html in content -%}{%- assign htmlblock = html | strip | prepend: ' <' -%}{{htmlblock | replace: ' </', '</'}}{%- endfor -%}

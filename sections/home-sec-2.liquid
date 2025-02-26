@@ -1,0 +1,150 @@
+<!-- Our Products Starts Here -->
+<section class="our-products py-60">
+  <div class="container-home">
+    <div class="row">
+       
+       <div class="col-lg-12">
+            <div class="row">
+      {% for block in section.blocks %}
+     
+      <div class="col-lg-6">
+        <div class="our-products__block">
+            <a href="{{ block.settings.img-link }}">
+          <div class="title-block mb-60">
+              {% if block.settings.heading-bold != blank and block.settings.heading-normal != blank %}
+                <h1>{{ block.settings.heading-bold }}<span class="font-italic font-light">{{ block.settings.heading-normal }}</span></h1>
+              {% endif %}
+              {% if block.settings.subheading-normal != blank and block.settings.subheading-bold != blank %}
+                <h2 class="d-none d-lg-block"><span class="font-extra-light font-italic">{{ block.settings.subheading-normal }}</span> {{ block.settings.subheading-bold }}</h2>
+              {% endif %}
+              {% if block.settings.icon-mobile %}
+                <div class="image-wrapper d-lg-none">
+                  <div class="image-ratio image-ratio--square">
+                    <img src="{{ block.settings.icon-mobile | img_url:'master' }}" alt="icon">
+                  </div>
+                </div>
+              {% endif %}
+          </div></a>
+		  
+            <a href="{{ block.settings.img-link }}">
+          <div class="our-products__block__image position-relative">
+              {% if block.settings.main-img-desktop %}<img src="{{ block.settings.main-img-desktop | img_url:'master' }}" alt="img" class="d-none d-lg-block">{% endif %}
+              {% if block.settings.main-img-mobile %} <img src="{{ block.settings.main-img-mobile | img_url:'master' }}" alt="img" class="d-lg-none">{% endif %}
+              
+              <figcaption class="image-caption absolute-full-box">
+                <div class="image-caption__block">
+                  <div class="image-wrapper d-none d-lg-block">
+                    <div class="image-ratio image-ratio--square">
+                      {% if block.settings.icon-desktop %}<img src="{{ block.settings.icon-desktop | img_url:'master' }}" alt="icon">{% endif %}
+                    </div>
+                  </div>
+                  {% if block.settings.show-btn %}
+                    <div class="btn-wrap mt-auto pb-60 text-center">
+                      {% if block.settings.btn-txt %}<button onclick="location.href='{{ block.settings.btn-url }}'" class="btn text-lowercase">{{ block.settings.btn-txt }}</button>{% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </figcaption>
+              
+          </div></a>
+        </div>
+      </div>
+      {% endfor %}
+ </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Our Products Ends Here -->
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Featured Products",
+    "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Add Product",
+      "settings": [
+					{
+						"type":"text",
+						"id":"heading-bold",
+						"label":"Bold Heading"
+					},
+					{
+						"type":"text",
+						"id":"heading-normal",
+						"label":"Normal Heading"
+					},
+					{
+						"type":"text",
+						"id":"subheading-normal",
+						"label":"Normal Subheading"
+					},
+					{
+						"type":"text",
+						"id":"subheading-bold",
+						"label":"Bold Subheading"
+					},
+					{
+						"type":"image_picker",
+						"id":"main-img-desktop",
+						"label":"Select Main Desktop Image"	
+					},
+					{
+						"type":"image_picker",
+						"id":"main-img-mobile",
+						"label":"Select Main Mobile Image"	
+					},
+					{
+						"type":"url",
+						"id":"img-link",
+						"label":"Image Redirect Link"	
+					},
+					{
+						"type":"image_picker",
+						"id":"icon-desktop",
+						"label":"Select Desktop Icon on Image"	
+					},
+					{
+						"type":"image_picker",
+						"id":"icon-mobile",
+						"label":"Select Mobile Icon on Image"	
+					},
+					{
+						"type":"checkbox",
+						"id":"show-btn",
+						"label":"Show Button on Image",
+						"default":true
+					},
+					{
+						"type":"text",
+						"id":"btn-txt",
+						"label":"Button Text",
+						"default":"Shop Now"	
+					},
+					{
+						"type":"url",
+						"id":"btn-url",
+						"label":"Button Link"	
+					}
+      ]
+    }
+  ],
+    "presets":[{
+				 "name":"Featured Products"
+               }
+              ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

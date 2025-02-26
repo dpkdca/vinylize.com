@@ -1,0 +1,352 @@
+{% if hypervisual_object %}
+{% elsif product %}
+    {% assign hypervisual_object = product %}
+{% elsif collection %}
+    {% assign hypervisual_object = collection %}
+{% elsif article %}
+    {% assign hypervisual_object = article %}
+{% elsif page %}
+    {% assign hypervisual_object = page %}
+{% elsif template == 'index' %}
+    {% assign hypervisual_object = pages.frontpage %}
+{% endif %}
+
+<script>
+	var slider;
+</script>
+
+{{ 'jquery.instagram.js' | asset_url | script_tag }}
+
+
+<div class="hypervisual__root">
+    {% if hypervisual_object.metafields.hypervisual.html or hypervisual_object.metafields.hypervisual.preview_html %}
+    <link rel="stylesheet" href="https://cdn.gethypervisual.com/assets/hypervisual.css" type="text/css" />
+    <link rel="stylesheet" media="(max-width: 767px)" href="https://cdn.gethypervisual.com/assets/hypervisual-single-column.css" type="text/css" />
+    {% if shop.metafields.hypervisual.settings %}{{ shop.metafields.hypervisual.settings }}{% endif %}
+    <div class="hypervisual__cf"></div>
+    {% if hypervisual_object.metafields.hypervisual.html %}
+	    <div class="hypervisual__container">
+    	  {{ hypervisual_object.metafields.hypervisual.html }}{{ hypervisual_object.metafields.hypervisual.html2 }}
+	    </div>
+  	{% endif %}
+  {% if product %} 
+<!--     <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div> 
+       <br><br>
+    </div> -->
+  {% endif %}
+    {% if hypervisual_object.metafields.hypervisual.preview_html %}
+	    <div class="hypervisual__preview_container" style="display: none;">
+    	  {{ hypervisual_object.metafields.hypervisual.preview_html }}{{ hypervisual_object.metafields.hypervisual.preview_html2 }}
+	    </div>
+  		<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+  	{% endif %}
+    <div class="hypervisual__cf"></div>
+    {% endif %}
+  
+</div>
+
+<div id="instafeed" class="custom-feed" data-access-token="{{ settings.instagram_access_token }}" data-user-id="{{ settings.instagram_user_id }}"></div> 
+
+
+
+<script>
+//   scrollToSection();
+  window.location.hash = "";
+  document.addEventListener('DOMContentLoaded', function() {
+  	var pageID = window.location.pathname;
+  
+    if (pageID.indexOf('caliber-optics') !== -1) {
+      var insta = document.querySelector('#instafeed')
+
+      var feed = new Instafeed({
+          get: "user",
+          userId: {{ settings.instagram_user_id }},
+          accessToken: "{{ settings.instagram_access_token }}"
+      });
+      feed.run();
+    }
+    if (window.matchMedia('(max-width: 568px)').matches) {
+    	var section = document.querySelector('.scroll-on-mobile');
+    } else {
+    	var section = document.querySelector('.cust-support');
+    }
+    
+    
+    if (section) {
+//       console.log(section)
+      section.id = "customer-section";
+//       console.log(section.offsetTop, 'offsetTop');
+//       window.scrollTo(0, section.offsetTop);
+//       section.scrollIntoView();
+//       setTimeout(() => {
+// //           window.location.hash = "#customer-section";           
+//       }, 1000);
+//       window.location.hash = "#null";
+      
+      var a = document.createElement('a');
+      a.href = "#customer-section";
+      a.click();
+//       window.scrollTo(0, section.offsetTop)s;
+//       console.log('loaded', section, section.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"}));
+//             ; 
+//       
+      
+    }
+  });
+  
+//   function scrollToSection() {
+//     setTimeout(() => {
+//        console.log(document.querySelector('.cust-support').className, 'section'); 
+//     document.querySelector('.cust-support').scrollIntoView();
+//     }, 5000);
+//   }
+  
+  
+  
+          
+  var model_arr = ['noise', 'hell', 'bone'];
+  var submodel_arr = ['Sun', 'Optical'];
+  
+  var model_obj = {
+    'noise' : {
+      'Sun' : 'mSUYR_rrDRI',
+      'Optical' : 'vbfFQge4Ues'
+    },
+    'hell' : {
+      'Sun' : 't96wqSrtno0',
+      'Optical' : 'jW7vdkA4JVc'
+    },
+    'bone' : {
+      'Sun' : 'cXSlt20EPhg',
+      'Optical' : '73M2b_STF-E'
+    }
+  }
+  
+  var url = '';
+  
+  // Available at opticians only label for product with price 111.11
+  {% if product %} 
+    function modify_price_label(){
+      setTimeout(function(){
+        var price = document.querySelector('.hypervisual__embed_product-price');
+        if(price !== null){
+          var price_container = document.querySelector('.hypervisual__embed_product-form');
+          if((price_container !== null) && ({{ product.price }} == 11111)){
+            price_container.innerHTML = '<h2>Available at opticians only, <a style="color: rgb(61,73,244)" href="https://vinylize.com/pages/locator">find a dealer</a> </h2>';
+          }
+        } else {
+          modify_price_label()
+        }
+      },500)
+    }
+  {% endif %}
+  
+  
+  if($('.hypervisual__slider-container').length > 0){
+             
+  /*  var slider = $('.hypervisual__slider-container')[0].swiper;
+    var end_flag = false;
+    var first_video_ready = false;
+    var player_stop = false;
+    var player_2_stop = false;
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player, player_2;
+
+
+          window.addEventListener("load", function(event) {
+
+            if(window.matchMedia("(min-width: 480px)").matches){
+
+
+              for(var i = 0; i < model_arr.length; i++) {
+                for(var j = 0; j < submodel_arr.length; j++) {
+                    if($('.hypervisual__text_line_one.hypervisual__text-large')[0].textContent.indexOf(model_arr[i].toUpperCase()) !== -1){
+                        if($('.hypervisual__text_line_one.hypervisual__text-large')[0].textContent.indexOf(submodel_arr[j]) !== -1){
+                            url = model_obj[model_arr[i]][submodel_arr[j]];
+                        } else if(model_arr[i] === 'hell') {
+                            url = model_obj[model_arr[i]]['Sun'];
+                        }
+
+                    }
+                }
+              }
+
+
+              slider.prependSlide('<div class="hypervisual__slider-slide"><div id="yt-player"></div></div>');
+              document.getElementById('yt-player').parentNode.style.height = window.getComputedStyle(document.getElementsByClassName('hypervisual__image-holder')[0], null).getPropertyValue('height');
+
+
+                function addYTVideo() {
+                  player = new YT.Player('yt-player', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: url,
+                    events: {
+                      'onReady': onPlayerReady
+                    },
+                    playerVars: {
+                       controls: 0,
+                       disablekb: 1,
+                       rel: 0,
+                       showinfo:0
+                    },
+                  });
+
+                }
+
+              function go_next(flag){
+                slider.slideNext(1000,false);
+                slider.autoplay.start();
+                flag = true;
+              }
+
+                function onPlayerReady(event) {
+                  player.setPlaybackQuality('720');
+                  player.playVideo();
+                  setTimeout(function(){
+                      goAfterVideo();
+                  },1000);
+                  first_video_ready = true;
+                }
+                function onPlayerReady2(event) {
+                  slider.autoplay.stop();
+                  player_2.setPlaybackQuality('hd720');
+                  player_2.playVideo();
+                  setTimeout(function(){
+                      goAfterVideo2();
+                  },1000);
+                  end_flag = true;
+                }
+                function goAfterVideo(){
+                  if(player_stop){
+                    go_next(player_stop);
+                    return false;
+                  }
+                  if(player.getPlayerState() === -1){
+                    go_next(player_stop);
+                    return false;
+                  }
+                  else if(player.getPlayerState() !== 0){
+                    setTimeout(function(){
+                        goAfterVideo();
+                    },1000);
+                  } else {
+                    go_next(player_stop);
+                    return false;
+                  }
+                }
+              function goAfterVideo2(){
+                  if(player_2_stop){
+                    go_next(player_2_stop);
+                    return false;
+                  }
+                  if(player_2.getPlayerState() === -1){
+                    go_next(player_2_stop);
+                    return false;
+                  }
+                  else if(player_2.getPlayerState() !== 0){
+                    setTimeout(function(){
+                        goAfterVideo2();
+                    },1000);
+                  } else {
+                    go_next(player_2_stop);
+                    return false;
+                  }
+                }
+
+              slider.on('reachEnd',function(){
+
+                if(!end_flag){
+                  var yt_player_2 = slider.slides[slider.activeIndex].nextSibling.nextSibling.childNodes[0];
+
+                  if(yt_player_2.id === 'yt-player'){
+                      yt_player_2.id = 'yt-player-2';
+                      yt_player_2.parentNode.style.height = window.getComputedStyle(document.getElementsByClassName('hypervisual__image-holder')[0], null).getPropertyValue('height');
+
+                      player_2 = new YT.Player('yt-player-2', {
+                      height: '100%',
+                      width: '100%',
+                      videoId: url,
+                      events: {
+                        'onReady': onPlayerReady2
+                      },
+                      playerVars: {
+                         controls: 0,
+                         disablekb: 1,
+                         rel: 0,
+                         showinfo:0
+                      }, 
+                    });
+                  }
+                }
+              });
+
+              slider.on('slideChange',function(){
+
+                if((slider.slides[slider.previousIndex].childNodes[0].id === 'yt-player') && (slider.slides[slider.previousIndex].childNodes[0].nodeName === 'IFRAME')){
+                    if(first_video_ready){
+                      player.stopVideo();
+                      player_stop = true;
+                    }
+                  }
+                  else if((slider.slides[slider.previousIndex].childNodes[0].id === 'yt-player-2') && (slider.slides[slider.previousIndex].childNodes[0].nodeName === 'IFRAME')){
+                    if(end_flag){
+                      player_2.stopVideo();
+                      player_2_stop = true;
+                    }
+                  }
+                  if((slider.slides[slider.activeIndex].childNodes[0].id === 'yt-player') && (slider.slides[slider.activeIndex].childNodes[0].nodeName === 'IFRAME')){
+                    if(first_video_ready){
+                      player.playVideo();
+                      player_stop = false;
+                        slider.autoplay.stop();
+                        setTimeout(function(){
+                           goAfterVideo();
+                        },1000);
+                    }
+                  }
+                  else if((slider.slides[slider.activeIndex].childNodes[0].id === 'yt-player-2') && (slider.slides[slider.activeIndex].childNodes[0].nodeName === 'IFRAME')){
+                    if(end_flag){
+                      player_2.playVideo();
+                      player_2_stop = false;
+                        slider.autoplay.stop();
+                        setTimeout(function(){
+                          goAfterVideo2();
+                        },1000);
+                    }	
+                  }
+
+              });
+
+
+
+              slider.pagination.render();
+              slider.pagination.update();
+              slider.update();
+              slider.init();
+              slider.slideTo(1,1000,false);
+              addYTVideo();
+
+            }
+
+          });*/
+  
+  }
+  else if(page.indexOf('acdc-x-vinylize') !== -1){
+    $(document).ready(function(){
+      	$('.hypervisual__util-video-wrapper iframe')[0].src += 'autoplay=1';
+//     	console.log($('.hypervisual__util-video-wrapper iframe')[0]);
+    });
+  }
+ 
+</script>
+
+<style>
+	#shopify-product-reviews {
+      padding: 0 35px 35px;
+    }
+</style>

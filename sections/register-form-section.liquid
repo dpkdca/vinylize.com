@@ -1,0 +1,244 @@
+<div class="row text_wra">
+  <div class="col-lg-1"></div>
+  <div class="col-lg-10">
+    <div class="title-block pb-3 register_frm">
+      <div class="row"> 
+        <div class="col-lg-6">
+          {% if section.settings.title-bold != blank %}
+            <h1>
+              <span class="font-italic"> 
+              {{ section.settings.title-bold }} 
+              </span>
+            </h1>
+          {% endif %}
+            <h2>
+              <span class="font-light font-italic">{{ section.settings.heading-normal }}</span> 
+              {{ section.settings.heading-bold }}
+            </h2>
+            <h4>
+              <span class="font-light font-italic">{{ section.settings.title-normal }} </span>
+            </h4>
+        </div>
+        <div class="col-lg-6">
+          <p>But, it’s always handy to have as much protection as possible.  Register your Vinylize for an extra year’s guarantee. You can count on free repairs (not shipping). You’ll also receive updates on all the latest developments at Vinylize.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-lg-1"></div>
+</div>
+{% if section.settings.enable_form %}
+{% form 'customer' %}
+      <div class="module-form-container">
+        <div class="form-container">
+          <div class="module-body">
+            <div class="form-container">
+              {% if form.posted_successfully? %}
+<!--                 <div class="checkMark" data-qa="afterSubmission">
+                  <figure style="text-align:center" class="margin-bottom-l">
+                    <img class="formImage" data-qa="afterSubmissionImage" src="https://powr.s3-us-west-1.amazonaws.com/images/checkmark.png" style="width:20%">
+                  </figure>
+                  <div class="text-center margin-bottom-l">
+                    <h4 style="font-size: 20px" class="margin-bottom-l" data-qa="successText">Your submission has been received!</h4>
+                  </div>
+                </div> -->
+                <style>body{display:none!important!}</style>
+                <script>window.location.replace("{{ section.settings.redirect_form }}");</script>
+              {% else %}
+                {% if form.errors %}
+                  <div class="vinylize-form-message">
+                    {{ form.errors | default_errors }}
+                  </div>
+                {% endif %}
+                <input type="hidden" id="contact_tags" name="contact[tags]" value="registered_vinylize">
+
+                <div class="row vinylize-field-wrapper">
+                  <div class="col-lg-1"></div>
+                     <div class="col-lg-10">
+                       <div class="user-form">
+                       <div class="row">
+                       	  <div class="col-lg-6">
+                            <div class="input-wrapper">
+                              <label class="input-label d-none" for="contact_first_name"><span class="required" style="font-size: 12px;">*</span>First Name</label>
+                              <input
+                                class="icon-arrow-right"
+                                name="contact[first_name]"
+                                type="text"
+							    placeholder="*First Name"
+                                aria-label="Order Number">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                          <div class="input-wrapper">
+                            <label class="input-label d-none" for="contact_last_name"><span class="required" style="font-size: 12px;">*</span>Last Name</label>
+                            <input
+                              class="icon-arrow-right"
+                              name="contact[last_name]"
+							  placeholder="*Last Name"
+                              type="text"
+                              aria-label="Order Number">
+                          </div>
+                          </div>
+                       </div>
+                       <div class="row">
+                       	 <div class="col-lg-12">
+                            <div class="input-wrapper">
+                              <label class="input-label d-none" for="contact_email"><span class="required" style="font-size: 12px;">*</span>Email Address</label>
+                              <input
+                                class="icon-arrow-right"
+                                name="contact[email]"
+                                placeholder="*Email Address"
+                                type="email"
+                               >
+                            </div>
+                            <div class="indented-label vn_field">
+                                <input type="hidden" name="contact[note][Vinylize newsletter]" value="Yes, please sign me up for the Vinylize newsletter" />
+                                <input
+                                  class="icon-arrow-right"
+                                  name="contact[vinylize_newsletter]"
+                                  type="checkbox"
+                                  value="Yes, please sign me up for the Vinylize newsletter"
+                                >
+                               <label class="input-label" for="accepts_marketing">Yes, please sign me up for the Vinylize newsletter</label>
+                             </div>
+                          </div>
+                       </div>
+                       <div class="row">
+                       	<div class="col-lg-6">							
+                          <div class="input-wrapper">
+                            <input name="contact[date_purchase]" id="datepurchase" placeholder="*Date of Purchase" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                          </div>
+						</div>
+                         <div class="col-lg-6">
+							<div class="input-wrapper">
+                              <label for="CustomerFormPurchase" class="d-none"><span class="required d-none" style="font-size: 12px;">*</span> Place of Purchase</label>
+                              <select id="CustomerFormPurchase" name="contact[place_purchase]">
+                                 <option value="">*Place of Purchase </option>
+                                 <option value="Optical Shop" data-price="0">Optical Shop</option>
+                                 <option value="Online" data-price="0">Online </option>
+                                 <option value="Tipton Showroom" data-price="0">Tipton Showroom</option>
+                                <option value="Other" data-price="0">Other</option>
+                              </select>
+                            </div>
+						 </div>
+                       </div>
+                       <div class="row">
+                        <div class="col-lg-12">
+                          <div class="input-wrapper">
+                              <label class="input-label d-none" for="contact_note_model_number"><span class="required" style="font-size: 12px;">*</span>Model Number/Name (engraved on inside of temple) <span class="model-info-link info" title="The Model Number can be found on your order confirmation email"></span></label>
+                              <input
+                                class="icon-arrow-right"
+                                name="contact[model_number]"
+							    placeholder="*Model Number/Name (engraved on inside of temple)"
+                                type="text"
+                                aria-label="Model Number">
+                            </div>
+						</div>                         
+                       </div>
+                       <div class="row">
+                       	<div class="col-lg-6">
+                          <div class="input-wrapper">
+                              <div class="input-wrapper">
+                                <label for="contact-time">Prescription lenses</label><br />
+                                <div class="radio-block">
+                                  <div><input type="radio" name="contact[prescription_lenses]" value="yes"><label for="morning">Yes</label></div>
+                                  <div><input type="radio" name="contact[prescription_lenses]" value="no"><label for="afternoon">No</label></div>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+						</div>
+                       <div class="row">
+                       	<div class="col-sm-12">
+                          <div class="input-wrapper cta-container btn-block">
+                              <input
+                                class="button"
+                                name="subscribe"
+                                type="submit"
+                                value="Submit"
+                                aria-label="Submit" />
+                            </div>
+						</div>
+                       </div>
+                       </div>
+                  </div>
+                      </div>
+                      <div class="col-lg-1"></div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+    {% endform %}
+{% else %}
+<iframe src="https://www.powr.io/form-builder/i/29470929#page" width="100%" height="900" id="myIframe" scrolling="no">
+</iframe> 
+{% endif %}
+
+
+<style>
+  .is-width-standard-238147910 {
+    min-height: auto !important;
+  }
+  iframe { 
+    overflow:hidden;
+  }
+  
+</style>
+<script>
+//     // Selecting the iframe element
+//     var iframe = document.getElementById("myIframe");
+    
+//     // Adjusting the iframe height onload event
+//     iframe.onload = function(){
+//         iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+//     }
+</script>
+
+
+{% schema %}
+  {
+    "name": "Register Form",
+    "settings": [
+      {
+         "type":"text",
+         "id":"title-bold",
+         "label":"Bold Title"
+      },
+      {
+         "type":"text",
+         "id":"heading-normal",
+         "label":"Normal Heading"
+      },
+      {
+         "type":"text",
+         "id":"heading-bold",
+         "label":"Bold Heading"
+      },
+      {
+        "type":"text",
+        "id":"title-normal",
+        "label":"Normal Title"
+      },
+	  {
+        "type": "checkbox",
+        "id": "enable_form",
+        "default": true,
+        "label": "Enable/Disable Shopify & Power builder form"
+      },
+	  {
+        "type": "url",
+        "id": "redirect_form",
+        "label": "Redirect Form"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
